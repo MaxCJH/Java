@@ -17,13 +17,13 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setTitle("Login - SISTEMA DE VENTAS");
+        this.setTitle("Login");
         this.setSize(new Dimension(700, 500));
     }
 
     @Override
     public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/ventas.png"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/farmacia.png"));
         return retValue;
     }
 
@@ -48,6 +48,8 @@ public class FrmLogin extends javax.swing.JFrame {
         txt_password = new javax.swing.JPasswordField();
         jButton_IniciarSesion = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -133,6 +135,12 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrito1.png"))); // NOI18N
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Nombre de usuario:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("Contraseña:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -145,10 +153,13 @@ public class FrmLogin extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton_IniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_usuario)
-                            .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton_IniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_usuario)
+                                .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel4))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
@@ -157,17 +168,25 @@ public class FrmLogin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel4)
-                .addGap(42, 42, 42)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton_IniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 350, 500));
@@ -236,6 +255,8 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSpinner jSpinner1;
@@ -246,22 +267,46 @@ public class FrmLogin extends javax.swing.JFrame {
     /**
      * metodo Iniciar Sesion
      */
-    private void Login() {
-        if (!txt_usuario.getText().isEmpty() && !txt_password.getText().isEmpty()) {
-            Ctrl_Usuario controlUsuario = new Ctrl_Usuario();
-            Usuario usuario = new Usuario();
-            usuario.setUsuario(txt_usuario.getText().trim());
-            usuario.setPassword(txt_password.getText().trim());
-            if (controlUsuario.loginUser(usuario)) {
-                //JOptionPane.showMessageDialog(null, "Login Correcto...");
-                FrmMenu menu = new FrmMenu();
-                menu.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o Clave Incorrectos");
-            }
+private void Login() {
+    if (!txt_usuario.getText().isEmpty() && !txt_password.getText().isEmpty()) {
+        Ctrl_Usuario controlUsuario = new Ctrl_Usuario();
+        Usuario usuario = new Usuario();
+        usuario.setUsuario(txt_usuario.getText().trim());
+
+        // Desencriptar la contraseña ingresada usando el cifrado ROT13 inverso
+        String decryptedPassword = decryptROT13(txt_password.getText().trim());
+        usuario.setPassword(decryptedPassword);
+
+        if (controlUsuario.loginUser(usuario)) {
+            JOptionPane.showMessageDialog(null, "Login Correcto...");
+            FrmMenu menu = new FrmMenu();
+            menu.setVisible(true);
+            this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Ingrese sus credenciales");
+            JOptionPane.showMessageDialog(null, "Usuario o Clave Incorrectos");
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Ingrese sus credenciales");
     }
+}
+
+private String decryptROT13(String message) {
+    StringBuilder result = new StringBuilder();
+
+    for (int i = 0; i < message.length(); i++) {
+        char c = message.charAt(i);
+
+        if (Character.isLetter(c)) {
+            if (Character.isUpperCase(c)) {
+                c = (char) ((c - 'A' + 13) % 26 + 'A');
+            } else {
+                c = (char) ((c - 'a' + 13) % 26 + 'a');
+            }
+        }
+
+        result.append(c);
+    }
+
+    return result.toString();
+}
 }

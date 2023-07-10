@@ -34,16 +34,15 @@ public class Reportes {
         Document documento = new Document();
         try {
             String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Reporte_Clientes.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("D:/Repositorio/SistemaDeventas1/src/reportes/Reporte_Clientes.pdf"));
             Image header = Image.getInstance("src/img/header1.jpg");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);
             //formato al texto
             Paragraph parrafo = new Paragraph();
             parrafo.setAlignment(Paragraph.ALIGN_CENTER);
-            parrafo.add("Reporte creado por \nFranklin © Programador Fantasma\n\n");
             parrafo.setFont(FontFactory.getFont("Tahoma", 18, Font.BOLD, BaseColor.DARK_GRAY));
-            parrafo.add("Reporte de Clientes \n\n");
+            parrafo.add("\n\nReporte de Clientes \n\n");
 
             documento.open();
             //agregamos los datos
@@ -96,16 +95,15 @@ public class Reportes {
         Document documento = new Document();
         try {
             String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Reporte_Productos.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("D:/Repositorio/SistemaDeventas1/src/reportes/Reporte_Productos.pdf"));
             Image header = Image.getInstance("src/img/header1.jpg");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);
             //formato al texto
             Paragraph parrafo = new Paragraph();
             parrafo.setAlignment(Paragraph.ALIGN_CENTER);
-            parrafo.add("Reporte creado por \nFranklin © Programador Fantasma\n\n");
             parrafo.setFont(FontFactory.getFont("Tahoma", 18, Font.BOLD, BaseColor.DARK_GRAY));
-            parrafo.add("Reporte de Productos \n\n");
+            parrafo.add("\n\nReporte de Productos \n\n");
 
             documento.open();
             //agregamos los datos
@@ -167,16 +165,15 @@ public class Reportes {
         Document documento = new Document();
         try {
             String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Reporte_Categorias.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("D:/Repositorio/SistemaDeventas1/src/reportes/Reporte_Categorias.pdf"));
             Image header = Image.getInstance("src/img/header1.jpg");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);
             //formato al texto
             Paragraph parrafo = new Paragraph();
             parrafo.setAlignment(Paragraph.ALIGN_CENTER);
-            parrafo.add("Reporte creado por \nFranklin © Programador Fantasma\n\n");
             parrafo.setFont(FontFactory.getFont("Tahoma", 18, Font.BOLD, BaseColor.DARK_GRAY));
-            parrafo.add("Reporte de Categorias \n\n");
+            parrafo.add("\n\nReporte de Categorias \n\n");
 
             documento.open();
             //agregamos los datos
@@ -225,7 +222,7 @@ public class Reportes {
         Document documento = new Document();
         try {
             String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Reporte_Ventas.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("D:/Repositorio/SistemaDeventas1/src/reportes/Reporte_Ventas.pdf"));
             Image header = Image.getInstance("src/img/header1.jpg");
             header.scaleToFit(650, 1000);
             header.setAlignment(Chunk.ALIGN_CENTER);

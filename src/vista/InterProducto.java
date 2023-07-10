@@ -123,8 +123,9 @@ public class InterProducto extends javax.swing.JInternalFrame {
         jComboBox_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione categoria:", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jComboBox_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 170, -1));
 
-        jButton_Guardar.setBackground(new java.awt.Color(0, 204, 204));
+        jButton_Guardar.setBackground(new java.awt.Color(0, 0, 255));
         jButton_Guardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Guardar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Guardar.setText("Guardar");
         jButton_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -22,6 +22,7 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
     String[] vector_fechaVenta;
     int[] vector_estatus_cantidad;
 
+    //Constructor
     public InterGraficaVentas() {
         initComponents();
         this.setSize(new Dimension(550, 650));
@@ -29,7 +30,8 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
         this.MetodoContador();
         vector_fechaVenta = new String[cantidadResultados];
         vector_estatus_cantidad = new int[cantidadResultados];
-        this.MetodoAlmacenarDatos();
+        this.MetodoAlmacenaDatos();
+
     }
 
     //Metodo para determinar la cantidad de resultados a graficar
@@ -38,25 +40,26 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
 
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select fechaVenta, count(fechaVenta) as Venta from tb_cabecera_venta "
-                    + "where fechaVenta BETWEEN'" + InterGraficas.fecha_inicio + "' and '" + InterGraficas.fecha_fin + "' group by fechaVenta;");
+                    "select fechaVenta, count(fechaVenta) as Ventas from tb_cabecera_venta "
+                    + "where fechaVenta BETWEEN '" + InterGraficas.fecha_inicio + "' and '" + InterGraficas.fecha_fin + "' group by fechaVenta;");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 cantidadResultados++;
             }
             cn.close();
+
         } catch (SQLException e) {
             System.out.println("Error en: " + e);
         }
         return cantidadResultados;
     }
 
-    // Metodo para almacenar en las lineas los 
-    private void MetodoAlmacenarDatos() {
+    //Metodo para almacenar en las listas los datos a graficar
+    private void MetodoAlmacenaDatos() {
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(
-                    "select fechaVenta, count(fechaVenta) as Venta from tb_cabecera_venta "
+                    "select fechaVenta, count(fechaVenta) as Ventas from tb_cabecera_venta "
                     + "where fechaVenta BETWEEN '" + InterGraficas.fecha_inicio + "' and '" + InterGraficas.fecha_fin + "' group by fechaVenta;");
             ResultSet rs = pst.executeQuery();
             int contador = 0;
@@ -69,13 +72,12 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
                 contador++;
             }
             cn.close();
-
         } catch (SQLException e) {
             System.out.println("Error en: " + e);
         }
     }
 
-    //Metodo para determinar cual es el dia de mayor cantidad de venta
+    //Metodo para dterminar cual es el dia de mahyor cantidad de ventas
     public int MetodoMayorVenta(ArrayList<Integer> listaCantidad) {
         int mayor = 0;
         for (int i = 0; i < listaCantidad.size(); i++) {
@@ -102,10 +104,10 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
         setResizable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Seleccione Fecha para Graficar");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 320, -1));
+        jLabel1.setText("Seleccione fechas para Graficar");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 330, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,7 +117,7 @@ public class InterGraficaVentas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
-   //metodo que dibuja graficas
+    //metodo que dibuja graficas
     @Override
     public void paint(Graphics g) {
         super.paint(g);

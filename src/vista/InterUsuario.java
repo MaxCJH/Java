@@ -93,8 +93,9 @@ public class InterUsuario extends javax.swing.JInternalFrame {
         txt_usuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         getContentPane().add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 170, -1));
 
-        jButton_Guardar.setBackground(new java.awt.Color(0, 204, 204));
+        jButton_Guardar.setBackground(new java.awt.Color(0, 0, 255));
         jButton_Guardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Guardar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Guardar.setText("Guardar");
         jButton_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,8 +108,14 @@ public class InterUsuario extends javax.swing.JInternalFrame {
         getContentPane().add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 170, -1));
 
         txt_password.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt_password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_passwordActionPerformed(evt);
+            }
+        });
         getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 170, -1));
 
+        jCheckBox_ver_clave.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jCheckBox_ver_clave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCheckBox_ver_claveMouseClicked(evt);
@@ -126,33 +133,57 @@ public class InterUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
-        if (txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_usuario.getText().isEmpty()
-                || txt_password.getText().isEmpty() || txt_telefono.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Completa todos los campos");
-        } else {
-            //validamos si el usuaro ya esta registrado
-            Usuario usuario = new Usuario();
-            Ctrl_Usuario controlUsuario = new Ctrl_Usuario();
-            if (!controlUsuario.existeUsuario(txt_usuario.getText().trim())) {
-                //enviamos datos del usuario
-                usuario.setNombre(txt_nombre.getText().trim());
-                usuario.setApellido(txt_apellido.getText().trim());
-                usuario.setUsuario(txt_usuario.getText().trim());
-                usuario.setPassword(txt_password.getText().trim());
-                usuario.setTelefono(txt_telefono.getText().trim());
-                usuario.setEstado(1);
-                
-                if (controlUsuario.guardar(usuario)) {
-                    JOptionPane.showMessageDialog(null, "¡Usuario Registrado!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "¡Error al registrar Usuario!");
-                }
+
+    if (txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_usuario.getText().isEmpty()
+            || txt_password.getText().isEmpty() || txt_telefono.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Completa todos los campos");
+    } else {
+        // Validamos si el usuario ya está registrado
+        Usuario usuario = new Usuario();
+        Ctrl_Usuario controlUsuario = new Ctrl_Usuario();
+        if (!controlUsuario.existeUsuario(txt_usuario.getText().trim())) {
+            // Enviamos datos del usuario
+            usuario.setNombre(txt_nombre.getText().trim());
+            usuario.setApellido(txt_apellido.getText().trim());
+            usuario.setUsuario(txt_usuario.getText().trim());
+            
+            // Aplicamos el cifrado ROT13 a la contraseña ingresada
+            String encryptedPassword = encryptROT13(txt_password.getText().trim());
+            usuario.setPassword(encryptedPassword);
+            
+            usuario.setTelefono(txt_telefono.getText().trim());
+            usuario.setEstado(1);
+            
+            if (controlUsuario.guardar(usuario)) {
+                JOptionPane.showMessageDialog(null, "¡Usuario Registrado!");
             } else {
-                JOptionPane.showMessageDialog(null, "El Usuario ya esta registrado, ingrese otro.");
+                JOptionPane.showMessageDialog(null, "¡Error al registrar Usuario!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El Usuario ya está registrado, ingrese otro.");
+        }
+    }
+    this.Limpiar();
+}
+
+private String encryptROT13(String message) {
+    StringBuilder result = new StringBuilder();
+    
+    for (int i = 0; i < message.length(); i++) {
+        char c = message.charAt(i);
+        
+        if (Character.isLetter(c)) {
+            if (Character.isUpperCase(c)) {
+                c = (char) ((c - 'A' + 13) % 26 + 'A');
+            } else {
+                c = (char) ((c - 'a' + 13) % 26 + 'a');
             }
         }
-        this.Limpiar();
-
+        
+        result.append(c);
+    }
+    
+    return result.toString();
     }//GEN-LAST:event_jButton_GuardarActionPerformed
 
     private void jCheckBox_ver_claveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox_ver_claveMouseClicked
@@ -172,6 +203,10 @@ public class InterUsuario extends javax.swing.JInternalFrame {
             txt_password_visible.setVisible(false);
         }
     }//GEN-LAST:event_jCheckBox_ver_claveMouseClicked
+
+    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passwordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
